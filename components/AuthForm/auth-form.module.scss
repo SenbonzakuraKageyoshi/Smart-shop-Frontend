@@ -1,0 +1,88 @@
+.authFormItemLabel{
+    display: block;
+    font-family: 'Exo 2';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    color: #070C11;
+}
+
+.authFormInput{
+    margin-top: 8px;
+    width: 310px;
+    height: 48px;
+    border: 1px solid #EAEAF0;
+    border-radius: 5px;
+}
+
+.authFormButton{
+    width: 310px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #2A5275;
+    border-radius: 4px;
+    font-family: 'Exo 2';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    color: #FFFFFF;
+    border: none;
+    margin-top: 20px;
+}
+
+.formTypeSwitcher{
+    font-family: 'Exo 2';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 100%;
+    color: #4878A6;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.errorMessage{
+    font-family: 'Exo 2';
+    font-weight: 400;
+    font-size: 14px;
+    margin-top: 5px;
+    color: red;
+    max-width: 310px;
+}
+
+.popupHeader{
+    padding: 20px 30px;
+    background: #EDF2F6;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.popupTitle{
+    font-family: 'Exo 2';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 120%;
+    color: #070C11;
+}
+
+.closePopupButton{
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+.popupMain{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px 0px 30px 0px;
+}

@@ -1,0 +1,158 @@
+.headerTopContent{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.headerTopMain{
+    display: flex;
+    align-items: center;
+    padding: 10px 0px;
+}
+
+.headerContacts{
+    display: flex;
+    align-items: center;
+    margin-left: 145px;
+}
+
+.telephone{
+    text-decoration: none;
+    font-family: 'Exo 2';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    color: #070C11;
+
+    &:nth-child(2){
+        margin-left: 20px;
+    }
+}
+
+.workingTime{
+    font-family: 'Exo 2';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    color: #838688;
+    margin-left: 20px;
+}
+
+.headerTopActions{
+    display: flex;
+    align-items: center;
+}
+
+.headerTopActionsItem{
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.authButton{
+    width: 99px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Exo 2';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    background: #2A5275;
+    border-radius: 4px;
+    color: #fff;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+@media(max-width: 1100px){
+    .headerContacts{
+        margin-left: 60px;
+    }
+}
+
+@media(max-width: 990px){
+    .headerContacts{
+        display: none;
+    }
+}
+
+@media(max-width: 500px){
+    .headerTopActionsItem{
+        display: none;
+    }
+}
+
+.headerBottom{
+    background: #0E1821;
+}
+
+.catalogButton{
+    width: 310px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    background: #0E1821;
+    cursor: pointer;
+
+    span{
+        margin-left: 10px;
+        font-family: 'Exo 2';
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;  
+        color: #FFFFFF;
+    }
+}
+
+.catalogButtonActive{
+    width: 310px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    background: #243C53;
+    cursor: pointer;
+
+    span{
+        margin-left: 10px;
+        font-family: 'Exo 2';
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19px;  
+        color: #FFFFFF;
+    }
+}
+
+.headerBottomNavMenuList{
+    display: flex;
+    align-items: center;
+}
+
+.headerBottomNavMenuListItem:not(:first-child){
+    margin-left: 40px;
+}
+
+.headerBottomNavMenuListLink{
+    font-family: 'Exo 2';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 100%;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.headerBottomContent{
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.headerBottomNav{
+    margin-left: 25px;
+}
