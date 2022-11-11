@@ -1,0 +1,30 @@
+.listInfoName{
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 105%;
+    color: #070C11;
+    margin-right: 30px;
+}
+
+.listInfo{
+    display: flex;
+    align-items: flex-end;
+    margin-bottom: 40px;
+}
+
+.listLink span{
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 120%;
+    color: #2A5275;
+}
+
+.listLink{
+    text-decoration: none;
+}
+
+.productsList{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}

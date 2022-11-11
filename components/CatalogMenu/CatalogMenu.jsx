@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 
-const CatalogMenu = () => {
+const CatalogMenu = ({catalogOpened}) => {
 
     const catalogMenu = useMemo(() => {
         return [

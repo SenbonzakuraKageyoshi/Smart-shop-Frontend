@@ -5,7 +5,7 @@ import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { changeOpenedStatus } from '../../redux/popup/popupSlice';
 import { fetchLogin, fetchRegister } from '../../redux/user/userSlice';
-import { saveToken } from '../service/service';
+import { saveToken } from '../../service/service';
 
 const AuthForm = () => {
 
@@ -26,9 +26,15 @@ const AuthForm = () => {
 
     const onSubmitHandler = useCallback((data) => {
         if(isLogin){
-            dispatch(fetchLogin(data)).then(({payload}) => saveToken(payload.token));
+            dispatch(fetchLogin(data)).then(({payload}) => {
+                saveToken(payload.token);
+                dispatch(changeOpenedStatus());
+            });
         }else{
-            dispatch(fetchRegister(data)).then(({payload}) => saveToken(payload.token));
+            dispatch(fetchRegister(data)).then(({payload}) => {
+                saveToken(payload.token);
+                dispatch(changeOpenedStatus());
+            });
         }
     }, [])
 

@@ -140,7 +140,7 @@ const Header = React.memo(() => {
                   </li>
                 </ul>
               </nav>
-              {catalogOpened ? <CatalogMenu /> : null}
+              {catalogOpened ? <CatalogMenu/> : null}
             </div>
           </div>
       </div>

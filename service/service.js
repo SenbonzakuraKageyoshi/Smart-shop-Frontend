@@ -6,4 +6,4 @@ const getToken = () => {
     return localStorage.getItem('smart-shop-verify-token');
 };
 
-export { saveToken, getToken }
+export { saveToken, getToken };
