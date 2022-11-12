@@ -1,13 +1,13 @@
 import ProductsCatalogList from "../components/ProductsCatalogList/ProductsCatalogList";
 import { myAxios } from "../utils/myAxios";
 
-export async function getServerSideProps(context) {
+export async function getStaticProps() {
     const { data: hitProducts } = await myAxios.get('/products/get-products?page=1');
 
   return {
     props: {hitProducts}
   }
-}
+};
 
 const Home = ({hitProducts}) => {
   return (

@@ -6,6 +6,7 @@ import CatalogMenu from '../CatalogMenu/CatalogMenu';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeOpenedStatus } from '../../redux/popup/popupSlice';
+import { getToken } from '../../service/service';
 
 const Header = React.memo(() => {
 
@@ -78,7 +79,7 @@ const Header = React.memo(() => {
           user.data && user.status === 'fulfilled'
           ?
           <div className={styles.headerTopActions}>
-            <Link href="/favorites">
+            <Link href={`/favorites?UserId=${user.data.id}&page=1&authorization=${getToken()}`}>
               <div className={styles.headerTopActionsItem}>
                 <Image src="/images/svg/favorites.svg" width={20} height={18} alt="favorites"/>
               </div>
