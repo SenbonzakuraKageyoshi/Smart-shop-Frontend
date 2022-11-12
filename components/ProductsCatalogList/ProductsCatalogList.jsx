@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 const ProductsCatalogList = ({listName, products, contentLength, isFavorites}) => {
     const favorites = useSelector(state => state.favorites);
     const user = useSelector(state => state.user);
-    
+
+
   return (
     <>
     {
@@ -43,7 +44,11 @@ const ProductsCatalogList = ({listName, products, contentLength, isFavorites}) =
         ?
         isFavorites
         ?
+        Object.keys(favorites.data).length
+        ?
         products.map(product => (
+            favorites.data[product.ProductId]
+            ?
             <CatalogProduct 
             key={product.ProductId}
             id={product.ProductId} 
@@ -56,7 +61,11 @@ const ProductsCatalogList = ({listName, products, contentLength, isFavorites}) =
             isLiked={favorites.data[product.ProductId]}
             UserId={user.data.id}
             />
+            :
+            null
         ))
+        :
+        <p>Нет избранных продуктов</p>
         :
         products.map(product => (
             <CatalogProduct 
@@ -73,7 +82,7 @@ const ProductsCatalogList = ({listName, products, contentLength, isFavorites}) =
             />
         ))
         :
-        !products.length
+        !products.length || !Object.keys(favorites.data).length
         ?
         isFavorites ? <p>Нет избранных продуктов</p> : <p>Продукты не найдены</p>
         :
