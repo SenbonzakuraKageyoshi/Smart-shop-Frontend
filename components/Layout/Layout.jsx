@@ -14,11 +14,13 @@ const Layout = ({children}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if(getToken()){
+    if(!user.data && getToken()){
       const token = getToken()
       dispatch(fetchMe(token)).then(({payload}) => dispatch(fetchFavorites({userId: payload.id, token})))
-    };
-  }, []);
+    }else if(user.data){
+      dispatch(fetchFavorites({userId: user.data.id, token: user.data.token}))
+    }
+  }, [user.data]);
 
   return (
     <>

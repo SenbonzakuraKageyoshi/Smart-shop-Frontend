@@ -4,23 +4,12 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
 
-const ProductsCatalogList = ({listName, products, contentLength, isFavorites}) => {
+const ProductsCatalogList = ({listName, products, contentLength}) => {
+
     const favorites = useSelector(state => state.favorites);
     const user = useSelector(state => state.user);
 
-    console.log(favorites)
-
   return (
-    <>
-    {
-    favorites.data && favorites.status === "fulfilled" || !favorites.data && !favorites.status
-    && 
-    user.data && user.status === "fulfilled" || !user.data && !user.status
-    ||
-    !favorites.data && favorites.status === "fulfilled"
-    &&
-    !user.data && user.status === "fulfilled"
-    ?
     <>
     <div className={styles.listInfo}>
         {
@@ -39,35 +28,15 @@ const ProductsCatalogList = ({listName, products, contentLength, isFavorites}) =
         null
         }
     </div>
+    {
+    products
+    ?
+    user.data && user.status === 'fulfilled' && favorites.data && favorites.status === 'fulfilled'
+    ||
+    !user.data && !user.status && !favorites.data && !favorites.status
+    ?
     <ul className={styles.productsList}>
         {
-        products && products.length
-        ?
-        isFavorites
-        ?
-        favorites.data && Object.keys(favorites.data).length
-        ?
-        products.map(product => (
-            favorites.data[product.ProductId]
-            ?
-            <CatalogProduct 
-            key={product.ProductId}
-            id={product.ProductId} 
-            name={product.Product.productName} 
-            category={product.Product.productCategory} 
-            price={product.Product.productPrice} 
-            imageSrc={product.Product.imageSrc}
-            isHit={product.Product.isHit}
-            isNew={product.Product.isNew}
-            isLiked={favorites.data[product.ProductId]}
-            UserId={user.data.id}
-            />
-            :
-            null
-        ))
-        :
-        <p>Нет избранных продуктов</p>
-        :
         products.map(product => (
             <CatalogProduct 
             key={product.id}
@@ -82,34 +51,53 @@ const ProductsCatalogList = ({listName, products, contentLength, isFavorites}) =
             UserId={user.data ? user.data.id : null}
             />
         ))
-        :
-        !products.length || !Object.keys(favorites.data).length
-        ?
-        isFavorites ? <p>Нет избранных продуктов</p> : <p>Продукты не найдены</p>
-        :
-        !products
-        ?
-        <p>Нет данных</p>
-        :
-        null
         }
     </ul>
-    </>
     :
-    favorites.data && favorites.status === "rejected"
-    &&
-    user.data && user.status === "rejected"
-    ||
-    !favorites.data && favorites.status === "rejected"
-    &&
-    !user.data && user.status === "rejected"
+    !user.data && user.status === 'pending' || !favorites.data && favorites.status === 'pending'
     ?
-    <p>error</p>
+    <p>wait</p>
     :
-    <p>загрузка</p>
+    !user.data && user.status === 'rejected' || !favorites.data && favorites.status === 'rejected'
+    ?
+    <p>Error</p>
+    :
+    <p>wait</p>
+    :
+    <p>Продукты не найдены</p>
     }
     </>
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* products.map(product => (
+            favorites.data[product.ProductId]
+            ?
+            <CatalogProduct 
+            key={product.ProductId}
+            id={product.ProductId} 
+            name={product.Product.productName} 
+            category={product.Product.productCategory} 
+            price={product.Product.productPrice} 
+            imageSrc={product.Product.imageSrc}
+            isHit={product.Product.isHit}
+            isNew={product.Product.isNew}
+            isLiked={favorites.data[product.ProductId]}
+            UserId={user.data.id}
+            />
+        )) */}
 
 export default ProductsCatalogList
