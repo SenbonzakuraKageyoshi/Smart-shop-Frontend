@@ -8,13 +8,14 @@ const ProductsCatalogList = ({listName, products, contentLength, isFavorites}) =
     const favorites = useSelector(state => state.favorites);
     const user = useSelector(state => state.user);
 
+    console.log(favorites)
 
   return (
     <>
     {
-    favorites.data && favorites.status === "fulfilled" 
+    favorites.data && favorites.status === "fulfilled" || !favorites.data && !favorites.status
     && 
-    user.data && user.status === "fulfilled"
+    user.data && user.status === "fulfilled" || !user.data && !user.status
     ||
     !favorites.data && favorites.status === "fulfilled"
     &&
@@ -44,7 +45,7 @@ const ProductsCatalogList = ({listName, products, contentLength, isFavorites}) =
         ?
         isFavorites
         ?
-        Object.keys(favorites.data).length
+        favorites.data && Object.keys(favorites.data).length
         ?
         products.map(product => (
             favorites.data[product.ProductId]
@@ -77,8 +78,8 @@ const ProductsCatalogList = ({listName, products, contentLength, isFavorites}) =
             imageSrc={product.imageSrc}
             isHit={product.isHit}
             isNew={product.isNew}
-            isLiked={favorites.data[product.id]}
-            UserId={user.data.id}
+            isLiked={favorites.data && Object.keys(favorites.data).length ? favorites.data[product.id] : false}
+            UserId={user.data ? user.data.id : null}
             />
         ))
         :

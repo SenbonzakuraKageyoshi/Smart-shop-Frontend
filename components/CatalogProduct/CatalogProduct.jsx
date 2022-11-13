@@ -5,16 +5,19 @@ import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { addToFavorite, removeFromFavorite } from '../../service/service';
 import { removeFavorite, addFavorite } from '../../redux/favorites/favoritesSlice';
+import { changeOpenedStatus } from '../../redux/popup/popupSlice';
 
 const CatalogProduct = React.memo(({id, name, category, price, imageSrc, isHit, isNew, isLiked, UserId}) => {
 
     const dispatch = useDispatch();
 
     const onFavoriteHandler = () => {
-        if(isLiked){
+        if(isLiked && UserId){
             removeFromFavorite({ProductId: id, UserId}).then(() => dispatch(removeFavorite(id)));
-        }else{
+        }else if(!isLiked && UserId){
             addToFavorite({ProductId: id, UserId}).then(() => dispatch(addFavorite(id)));
+        }else if(!isLiked && !UserId){
+            dispatch(changeOpenedStatus())
         }
     }
 

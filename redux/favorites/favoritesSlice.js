@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { myAxios } from "../../utils/myAxios";
 
 export const fetchFavorites = createAsyncThunk('products/get-favorites', async ({userId, token}) => {
-    const { data } = await myAxios.post(`/products/get-liked-products?isObject=true&UserId=${userId}`, null, {headers: {
+    const { data } = await myAxios.post(`/products/get-liked-products?isObject=true&currentUserId=${userId}`, null, {headers: {
         Authorization: 'Bearer ' + token
     }});
     return data;

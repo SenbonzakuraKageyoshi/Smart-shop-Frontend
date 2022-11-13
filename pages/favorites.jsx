@@ -1,24 +1,36 @@
 import ProductsCatalogList from '../components/ProductsCatalogList/ProductsCatalogList';
 import { myAxios } from '../utils/myAxios';
-import getToken from '../service/service';
+import { getToken } from '../service/service';
+import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import AuthProtect from '../components/AuthProtect/AuthProtect';
 
-export async function getServerSideProps({query}) {
-  const { data } = await myAxios.post(`/products/get-liked-products?UserId=${query.UserId}&page=${query.page}`, null, {headers: {
-    Authorization: 'Bearer ' + query.authorization
-}});
+const favorites = () => {
 
-return {
-  props: {favorites: data.likedProducts, contentLength: data.contentLength}
-}
-};
+  const user = useSelector(state => state.user)
 
-const favorites = ({favorites, contentLength}) => {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      const data = await myAxios.post(`/products/get-liked-products?&page=1`, {UserId: user.data.id}, {headers: {
+        Authorization: 'Bearer ' + user.data.token
+      }}).then(({data}) => setData(data))
+    };
+
+    if(user.data){
+      fetchFavorites();
+    }
+  }, [user.data])
+
   return (
-    <section className="favorites">
+    <AuthProtect>
+      <section className="favorites">
         <div className="container">
-        <ProductsCatalogList products={favorites} contentLength={contentLength} isFavorites={true}/>
+        {data ? <ProductsCatalogList products={data.likedProducts} contentLength={data.contentLength} isFavorites={true}/> : <p>wait</p>}
         </div>
-    </section>
+      </section>
+    </AuthProtect>
   )
 }
 

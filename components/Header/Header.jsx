@@ -79,7 +79,7 @@ const Header = React.memo(() => {
           user.data && user.status === 'fulfilled'
           ?
           <div className={styles.headerTopActions}>
-            <Link href={`/favorites?UserId=${user.data.id}&page=1&authorization=${getToken()}`}>
+            <Link href={`/favorites?page=1`}>
               <div className={styles.headerTopActionsItem}>
                 <Image src="/images/svg/favorites.svg" width={20} height={18} alt="favorites"/>
               </div>
