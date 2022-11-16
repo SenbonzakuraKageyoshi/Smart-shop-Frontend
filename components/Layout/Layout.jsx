@@ -19,18 +19,30 @@ const Layout = ({children}) => {
   useEffect(() => {
     const fetchData = async () => {
       if(!user.data && user.status !== 'fulfilled' && getToken()){
-        await dispatch(fetchMe(getToken()))
-          .then(({payload}) => dispatch(fetchFavorites({userId: payload.id, token})))
-          .catch(() => {
-            dispatch(setFavoritesError());
-            dispatch(setUserError());
+        // Если нет данных и статус завершен, но есть токен,
+        // то попытайся получить данные о юзере, в случае успеха получи данные о лайках,
+        // если безуспешно, то установи статус ошибки для юзера и лайков,
+        // это будет говорить о том, что юзер пытался войти, но что-то пошло не так,
+        // в первую очередь неверный токен
+        try {
+          await dispatch(fetchMe(getToken()))
+          .then((data) => {
+            if(!data.error){
+              return dispatch(fetchFavorites({userId: data.payload.id, token: data.payload.id}))
+            }else{
+              throw new Error()
+            }
           });
-
+        } catch (error) {
+          dispatch(setFavoritesError());
+          dispatch(setUserError());
+        };
       }else if(user.data){
         dispatch(fetchFavorites({userId: user.data.id, token: user.data.token}));
       }else if(!user.data && !getToken()){
+        // это будет говорить о том, что юзер даже не пытался войти,
         dispatch(setFavoritesError());
-        dispatch(setUserError());;
+        dispatch(setUserError());
       }
     };
 
