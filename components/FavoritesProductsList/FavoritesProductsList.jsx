@@ -1,13 +1,12 @@
 import styles from './favorites-products-list.module.scss';
 import CatalogProduct from '../CatalogProduct/CatalogProduct';
-import Link from 'next/link';
-import Image from 'next/image';
 import { useSelector } from 'react-redux';
+import Loader from '../Loader/Loader';
 
 const ProductsCatalogList = ({products, contentLength}) => {
     
-    const favorites = useSelector(state => state.favorites);
-    const user = useSelector(state => state.user);
+  const favorites = useSelector(state => state.favorites);
+  const user = useSelector(state => state.user);
 
   return (
     <>
@@ -15,6 +14,8 @@ const ProductsCatalogList = ({products, contentLength}) => {
     products && products.length
     ?
     user.data && user.status === 'fulfilled' && favorites.data && favorites.status === 'fulfilled'
+    ||
+    !user.data && user.status === 'rejected' && !favorites.data && favorites.status === 'rejected'
     ?
     <ul className={styles.productsList}>
         {
@@ -45,20 +46,18 @@ const ProductsCatalogList = ({products, contentLength}) => {
     :
     !user.data && user.status === 'pending' || !favorites.data && favorites.status === 'pending'
     ?
-    <p>wait</p>
+    <Loader />
     :
-    !user.data && user.status === 'rejected' || !favorites.data && favorites.status === 'rejected'
+    user.data && user.status === 'fulfilled' && !favorites.data && favorites.status === 'rejected'
     ?
     <p>Error</p>
     :
-    <p>wait</p>
+    <Loader />
     :
     <p>Нет избранных продуктов</p>
     }
     </>
   )
 }
-
-
 
 export default ProductsCatalogList

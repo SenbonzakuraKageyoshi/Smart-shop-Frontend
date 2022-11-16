@@ -1,6 +1,6 @@
 import styles from './auth-form.module.scss';
 import { useForm } from 'react-hook-form';
-import { useMemo, useState, useCallback } from 'react';
+import { useMemo, useState } from 'react';
 import Image from 'next/image';
 import { useDispatch } from 'react-redux';
 import { changeOpenedStatus } from '../../redux/popup/popupSlice';
@@ -24,7 +24,7 @@ const AuthForm = () => {
 
     const { register, formState: { errors }, handleSubmit } = useForm({ mode: 'all' });
 
-    const onSubmitHandler = useCallback((data) => {
+    const onSubmitHandler = (data) => {
         if(isLogin){
             dispatch(fetchLogin(data)).then(({payload}) => {
                 saveToken(payload.token);
@@ -36,7 +36,7 @@ const AuthForm = () => {
                 dispatch(changeOpenedStatus());
             });
         }
-    }, [])
+    }
 
   return (
     <>

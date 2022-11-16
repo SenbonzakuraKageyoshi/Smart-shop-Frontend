@@ -3,6 +3,7 @@ import { myAxios } from '../utils/myAxios';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import AuthProtect from '../components/AuthProtect/AuthProtect';
+import Loader from '../components/Loader/Loader';
 
 const favorites = () => {
 
@@ -26,7 +27,7 @@ const favorites = () => {
     <AuthProtect>
       <section className="favorites">
         <div className="container">
-        {data ? <FavoritesProductsList products={data.likedProducts} contentLength={data.contentLength} /> : <p>wait</p>}
+        {data ? <FavoritesProductsList products={data.likedProducts} contentLength={data.contentLength} /> : <Loader />}
         </div>
       </section>
     </AuthProtect>

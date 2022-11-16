@@ -3,6 +3,7 @@ import CatalogProduct from '../CatalogProduct/CatalogProduct';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useSelector } from 'react-redux';
+import Loader from '../Loader/Loader';
 
 const ProductsCatalogList = ({listName, products, contentLength}) => {
 
@@ -31,9 +32,13 @@ const ProductsCatalogList = ({listName, products, contentLength}) => {
     {
     products
     ?
+    !user.data && user.status === 'pending' || !favorites.data && favorites.status === 'pending'
+    ?
+    <Loader />
+    :
     user.data && user.status === 'fulfilled' && favorites.data && favorites.status === 'fulfilled'
     ||
-    !user.data && !user.status && !favorites.data && !favorites.status
+    !user.data && user.status === 'rejected' && !favorites.data && favorites.status === 'rejected'
     ?
     <ul className={styles.productsList}>
         {
@@ -56,48 +61,18 @@ const ProductsCatalogList = ({listName, products, contentLength}) => {
     :
     !user.data && user.status === 'pending' || !favorites.data && favorites.status === 'pending'
     ?
-    <p>wait</p>
+    <Loader />
     :
-    !user.data && user.status === 'rejected' || !favorites.data && favorites.status === 'rejected'
+    user.data && user.status === 'fulfilled' && !favorites.data && favorites.status === 'rejected'
     ?
     <p>Error</p>
     :
-    <p>wait</p>
+    <Loader />
     :
     <p>Продукты не найдены</p>
     }
     </>
   )
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{/* products.map(product => (
-            favorites.data[product.ProductId]
-            ?
-            <CatalogProduct 
-            key={product.ProductId}
-            id={product.ProductId} 
-            name={product.Product.productName} 
-            category={product.Product.productCategory} 
-            price={product.Product.productPrice} 
-            imageSrc={product.Product.imageSrc}
-            isHit={product.Product.isHit}
-            isNew={product.Product.isNew}
-            isLiked={favorites.data[product.ProductId]}
-            UserId={user.data.id}
-            />
-        )) */}
 
 export default ProductsCatalogList
