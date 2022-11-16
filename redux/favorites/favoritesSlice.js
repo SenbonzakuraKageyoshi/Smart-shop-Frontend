@@ -23,7 +23,7 @@ const favoritesSlice = createSlice({
         addFavorite: (state, action) => {
             state.data[action.payload] = true;
         },
-        setError: (state) => {
+        setFavoritesError: (state) => {
             state.data = null;
             state.status = 'rejected';
         }
@@ -46,4 +46,4 @@ const favoritesSlice = createSlice({
 
 export const favoritesReducer = favoritesSlice.reducer;
 
-export const { removeFavorite, addFavorite, setError } = favoritesSlice.actions;
+export const { removeFavorite, addFavorite, setFavoritesError } = favoritesSlice.actions;

@@ -10,11 +10,11 @@ const AuthProtect = ({children}) => {
 
     const dispatch = useDispatch(fetchMe());
 
-    useEffect(() => {
-        if(user.data){
-          dispatch(fetchFavorites({userId: user.data.id, token: user.data.token}))
-        };
-      }, [user.data]);
+    // useEffect(() => {
+    //     if(user.data){
+    //       dispatch(fetchFavorites({userId: user.data.id, token: user.data.token}))
+    //     };
+    //   }, [user.data]);
 
     if(!user.data && user.status === 'pending'){
         return <p>wait</p>

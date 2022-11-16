@@ -31,6 +31,10 @@ const userSlice = createSlice({
             state.data = null;
             state.status = null;
         },
+        setUserError: (state) => {
+            state.data = null;
+            state.status = 'rejected';
+        }
     },
     extraReducers: {
         [fetchRegister.pending] : (state) => {
@@ -74,4 +78,4 @@ const userSlice = createSlice({
 
 export const userReducer = userSlice.reducer;
 
-export const { logout } = userSlice.actions;
+export const { logout, setUserError } = userSlice.actions;

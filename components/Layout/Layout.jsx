@@ -6,7 +6,8 @@ import { useEffect } from "react";
 import { fetchMe } from "../../redux/user/userSlice";
 import { getToken } from "../../service/service";
 import { fetchFavorites } from "../../redux/favorites/favoritesSlice";
-import { setError } from "../../redux/favorites/favoritesSlice";
+import { setFavoritesError } from "../../redux/favorites/favoritesSlice";
+import { setUserError } from "../../redux/user/userSlice";
 
 const Layout = ({children}) => {
 
@@ -18,17 +19,18 @@ const Layout = ({children}) => {
   useEffect(() => {
     const fetchData = async () => {
       if(!user.data && user.status !== 'fulfilled' && getToken()){
-        try {
-          await dispatch(fetchMe(getToken()))
-            .then(({payload}) => dispatch(fetchFavorites({userId: payload.id, token})))
-            .catch(() => dispatch(setError()))
-        } catch (error) {
-          dispatch(setUndefinedStatus());
-        }
+        await dispatch(fetchMe(getToken()))
+          .then(({payload}) => dispatch(fetchFavorites({userId: payload.id, token})))
+          .catch(() => {
+            dispatch(setFavoritesError());
+            dispatch(setUserError());
+          });
+
       }else if(user.data){
         dispatch(fetchFavorites({userId: user.data.id, token: user.data.token}));
       }else if(!user.data && !getToken()){
-        dispatch(setUndefinedStatus());
+        dispatch(setFavoritesError());
+        dispatch(setUserError());;
       }
     };
 
