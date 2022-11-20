@@ -12,21 +12,23 @@ const CatalogProduct = React.memo(({id, name, category, price, imageSrc, isHit, 
     const dispatch = useDispatch();
 
     const onFavoriteHandler = () => {
-        if(isLiked && UserId){
-            removeFromFavorite({ProductId: id, UserId}).then(() => dispatch(removeFavorite(id)));
+        if(!UserId){
+            dispatch(changeOpenedStatus());
         }else if(!isLiked && UserId){
             addToFavorite({ProductId: id, UserId}).then(() => dispatch(addFavorite(id)));
-        }else if(!isLiked && !UserId){
-            dispatch(changeOpenedStatus())
-        }
-    }
+        }else if(isLiked && UserId){
+            removeFromFavorite({ProductId: id, UserId}).then(() => dispatch(removeFavorite(id)));
+        };
+    };
 
     return (
         <div className={styles.product}>
             <Image src={imageSrc} width={286} height={224} alt="product"/>
             <div className={styles.productInfo}>
                 <h2 className={styles.productCatelogry}>{category}</h2>
-                <h1 className={styles.productName}>{name}</h1>
+                <Link href="/prod">
+                    <h1 className={styles.productName}>{name}</h1>
+                </Link>
                 <div className={styles.productPrice}>
                     <span className={styles.productPriceValue}>{price} ₽</span>
                     <button className={isLiked ? styles.productAddToLikedActive : styles.productAddToLiked} onClick={onFavoriteHandler}>

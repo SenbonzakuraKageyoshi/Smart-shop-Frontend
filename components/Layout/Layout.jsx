@@ -1,6 +1,7 @@
 import Header from "../Header/Header";
 import Head from "next/head";
 import AuthPopup from "../AuthPopup/AuthPopup";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { fetchMe } from "../../redux/user/userSlice";
@@ -8,15 +9,32 @@ import { getToken } from "../../service/service";
 import { fetchFavorites } from "../../redux/favorites/favoritesSlice";
 import { setFavoritesError } from "../../redux/favorites/favoritesSlice";
 import { setUserError } from "../../redux/user/userSlice";
+import Toolbar from "../Toolbar/Toolbar";
 
 const Layout = ({children}) => {
 
+  const [toolbarIsOpened, setToolbarIsOpened] = useState(false);
   const { isOpened } = useSelector(state => state.popup);
 
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
+
+    if(window.innerWidth <= 955){
+      setToolbarIsOpened(true)
+    };
+
+    const showToolbar = () => {
+      if(window.innerWidth <= 955){
+        setToolbarIsOpened(true)
+      }else{
+        setToolbarIsOpened(false)
+      }
+    };
+
+    window.addEventListener('resize', () => showToolbar())
+
     const fetchData = async () => {
       if(!user.data && user.status !== 'fulfilled' && getToken()){
         // Если нет данных и статус завершен, но есть токен,
@@ -28,9 +46,9 @@ const Layout = ({children}) => {
           await dispatch(fetchMe(getToken()))
           .then((data) => {
             if(!data.error){
-              return dispatch(fetchFavorites({userId: data.payload.id, token: data.payload.id}))
+              return dispatch(fetchFavorites({userId: data.payload.id, token: data.payload.id}));
             }else{
-              throw new Error()
+              throw new Error();
             }
           });
         } catch (error) {
@@ -57,6 +75,7 @@ const Layout = ({children}) => {
     <Header />
     {children}
     {isOpened ? <AuthPopup /> : null}
+    {toolbarIsOpened ? <Toolbar /> : null}
     </>
   )
 }
