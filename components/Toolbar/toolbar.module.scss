@@ -28,32 +28,3 @@
         margin-left: 65px;
     }
 }
-
-.toolbarContentWrapper{
-    display: block;
-    position: fixed;
-    z-index: 40;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(127, 151, 172, 0.7);
-}
-
-.toolbarContent{
-    max-width: 730px;
-    min-height: 940px;
-    height: auto;
-    width: 100%;
-    background: #FFFFFF;
-    border-radius: 4px;
-    padding: 50px 60px 50px 50px;
-    border: none;
-    box-shadow: none;
-    position: absolute;
-    bottom: -250px;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, 0%);
-}

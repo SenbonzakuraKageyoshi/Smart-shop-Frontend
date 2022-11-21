@@ -28,12 +28,12 @@ const AuthForm = () => {
         if(isLogin){
             dispatch(fetchLogin(data)).then(({payload}) => {
                 saveToken(payload.token);
-                dispatch(changeOpenedStatus());
+                dispatch(changeOpenedStatus({payload: {isOpened: false, componentName: null}}));
             });
         }else{
             dispatch(fetchRegister(data)).then(({payload}) => {
                 saveToken(payload.token);
-                dispatch(changeOpenedStatus());
+                dispatch(changeOpenedStatus({payload: {isOpened: false, componentName: null}}));
             });
         }
     }
@@ -43,7 +43,7 @@ const AuthForm = () => {
     <div className={styles.popupContent}>
         <header className={styles.popupHeader}>
             <div className={styles.popupTitle}>{isLogin ? 'Вход' : 'Регистрация'}</div>
-            <button className={styles.closePopupButton} onClick={() => dispatch(changeOpenedStatus())}>
+            <button className={styles.closePopupButton} onClick={() => dispatch(changeOpenedStatus({payload: {isOpened: false, componentName: null}}))}>
                 <Image src="/images/svg/close-popup.svg" width={48} height={48} alt="close"/>
             </button>
         </header>

@@ -1,15 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-    isOpened: false
+    isOpened: null,
+    componentName: null,
 }
 
 const popupSlice = createSlice({
     name: 'popup',
     initialState,
     reducers: {
-        changeOpenedStatus: (state) => {
-            state.isOpened = !state.isOpened;
+        changeOpenedStatus: (state, action) => {
+            state.isOpened = action.payload.payload.isOpened;
+            state.componentName = action.payload.payload.componentName;
         },
     }
 });

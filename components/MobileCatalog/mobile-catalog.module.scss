@@ -1,0 +1,36 @@
+.mobileCatalogContent{
+    max-width: 730px;
+    min-height: 940px;
+    height: auto;
+    width: 100%;
+    background-color: #fff;
+    padding: 50px 60px 50px 50px;
+    margin: 15% auto;
+    position: relative;
+    border-radius: 15px;
+}
+
+.popupHeader{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.popupTitle{
+    font-family: 'Exo 2';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 120%;
+    color: #070C11;
+}
+
+.closePopupButton{
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}

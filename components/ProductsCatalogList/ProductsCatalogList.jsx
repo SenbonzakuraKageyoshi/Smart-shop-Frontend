@@ -10,8 +10,6 @@ const ProductsCatalogList = ({listName, products, contentLength}) => {
     const favorites = useSelector(state => state.favorites);
     const user = useSelector(state => state.user);
 
-    console.log(user)
-
   return (
     <>
     <div className={styles.listInfo}>

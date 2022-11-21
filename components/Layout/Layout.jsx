@@ -1,6 +1,6 @@
 import Header from "../Header/Header";
 import Head from "next/head";
-import AuthPopup from "../AuthPopup/AuthPopup";
+import Popup from "../Popup/Popup";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -14,10 +14,12 @@ import Toolbar from "../Toolbar/Toolbar";
 const Layout = ({children}) => {
 
   const [toolbarIsOpened, setToolbarIsOpened] = useState(false);
-  const { isOpened } = useSelector(state => state.popup);
+  const { isOpened, componentName } = useSelector(state => state.popup);
 
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
+
+  console.log(isOpened, componentName);
 
   useEffect(() => {
 
@@ -46,7 +48,7 @@ const Layout = ({children}) => {
           await dispatch(fetchMe(getToken()))
           .then((data) => {
             if(!data.error){
-              return dispatch(fetchFavorites({userId: data.payload.id, token: data.payload.id}));
+              return dispatch(fetchFavorites({userId: data.payload.id, token: data.payload.token}));
             }else{
               throw new Error();
             }
@@ -74,7 +76,7 @@ const Layout = ({children}) => {
     </Head>
     <Header />
     {children}
-    {isOpened ? <AuthPopup /> : null}
+    {isOpened ? <Popup componentName={componentName}/> : null}
     {toolbarIsOpened ? <Toolbar /> : null}
     </>
   )

@@ -6,7 +6,7 @@ import CatalogMenu from '../CatalogMenu/CatalogMenu';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeOpenedStatus } from '../../redux/popup/popupSlice';
-import { getToken } from '../../service/service';
+import AuthForm from '../AuthForm/AuthForm';
 
 const Header = React.memo(() => {
 
@@ -39,37 +39,37 @@ const Header = React.memo(() => {
           !user.data && !user.status
           ?
           <div className={styles.headerTopActions}>
-            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus())}>
+            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus('AuthForm'))}>
               <Image src="/images/svg/favorites.svg" width={20} height={18} alt="favorites"/>
             </div>
-            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus())}>
+            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus('AuthForm'))}>
               <Image src="/images/svg/cart.svg" width={21} height={20} alt="cart"/>
             </div>
-            <div className={styles.authButton} onClick={() => dispatch(changeOpenedStatus())}>Войти</div>
+            <div className={styles.authButton} onClick={() => dispatch(changeOpenedStatus('AuthForm'))}>Войти</div>
           </div>
           :
           !user.data && user.status === 'fulfilled'
           ?
           <div className={styles.headerTopActions}>
-            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus())}>
+            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus('AuthForm'))}>
               <Image src="/images/svg/favorites.svg" width={20} height={18} alt="favorites"/>
             </div>
-            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus())}>
+            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus('AuthForm'))}>
               <Image src="/images/svg/cart.svg" width={21} height={20} alt="cart"/>
             </div>
-            <div className={styles.authButton} onClick={() => dispatch(changeOpenedStatus())}>Войти</div>
+            <div className={styles.authButton} onClick={() => dispatch(changeOpenedStatus('AuthForm'))}>Войти</div>
           </div>
           :
           !user.data && user.status === 'rejected'
           ?
           <div className={styles.headerTopActions}>
-            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus())}>
+            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus({payload: {isOpened: true, componentName: 'AuthForm'}}))}>
               <Image src="/images/svg/favorites.svg" width={20} height={18} alt="favorites"/>
             </div>
-            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus())}>
+            <div className={styles.headerTopActionsItem} onClick={() => dispatch(changeOpenedStatus({payload: {isOpened: true, componentName: 'AuthForm'}}))}>
               <Image src="/images/svg/cart.svg" width={21} height={20} alt="cart"/>
             </div>
-            <div className={styles.authButton} onClick={() => dispatch(changeOpenedStatus())}>Войти</div>
+            <div className={styles.authButton} onClick={() => dispatch(changeOpenedStatus({payload: {isOpened: true, componentName: 'AuthForm'}}))}>Войти</div>
           </div>
           :
           !user.data && user.status === 'pending' 
