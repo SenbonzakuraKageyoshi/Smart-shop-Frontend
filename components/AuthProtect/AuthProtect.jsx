@@ -1,8 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { fetchMe } from "../../redux/user/userSlice";
-import { useEffect } from "react";
-import { getToken } from "../../service/service";
-import { fetchFavorites } from "../../redux/favorites/favoritesSlice";
+import Loader from "../Loader/Loader";
 
 const AuthProtect = ({children}) => {
 
@@ -17,7 +15,7 @@ const AuthProtect = ({children}) => {
     //   }, [user.data]);
 
     if(!user.data && user.status === 'pending'){
-        return <p>wait</p>
+        return <Loader />
     }else if(user.data && user.status === 'fulfilled'){
         return children
     }else if(!user.data && user.status === 'rejected' || !user.data && user.status === 'fulfilled'){

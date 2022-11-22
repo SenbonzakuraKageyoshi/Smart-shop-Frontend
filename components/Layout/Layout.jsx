@@ -19,16 +19,14 @@ const Layout = ({children}) => {
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
 
-  console.log(isOpened, componentName);
-
   useEffect(() => {
 
-    if(window.innerWidth <= 955){
+    if(window.innerWidth <= 997){
       setToolbarIsOpened(true)
     };
 
     const showToolbar = () => {
-      if(window.innerWidth <= 955){
+      if(window.innerWidth <= 997){
         setToolbarIsOpened(true)
       }else{
         setToolbarIsOpened(false)

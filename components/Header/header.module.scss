@@ -69,24 +69,6 @@
     cursor: pointer;
 }
 
-@media(max-width: 1100px){
-    .headerContacts{
-        margin-left: 60px;
-    }
-}
-
-@media(max-width: 990px){
-    .headerContacts{
-        display: none;
-    }
-}
-
-@media(max-width: 500px){
-    .headerTopActionsItem{
-        display: none;
-    }
-}
-
 .headerBottom{
     background: #0E1821;
 }
@@ -177,11 +159,22 @@
     }
 }
 
-@media(max-width: 955px){
+@media(max-width: 1045px){
+    .headerContacts{
+        margin-left: 60px;
+    }
+}
+
+@media(max-width: 997px){
+    .headerContacts{
+        display: none;
+    }
+
     .headerBottom{
         display: none;
     }
-    .headerTopActionsItem:nth-child(2){
+    
+    .headerTopActions a:nth-child(2), .headerTopActionsItem:nth-child(2){
         display: none;
-    }
+    }   
 }

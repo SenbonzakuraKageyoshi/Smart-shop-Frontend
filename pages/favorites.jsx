@@ -6,28 +6,11 @@ import AuthProtect from '../components/AuthProtect/AuthProtect';
 import Loader from '../components/Loader/Loader';
 
 const favorites = () => {
-
-  const user = useSelector(state => state.user)
-
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    const fetchFavorites = async () => {
-      const data = await myAxios.post(`/products/get-liked-products?&page=1`, {UserId: user.data.id}, {headers: {
-        Authorization: 'Bearer ' + user.data.token
-      }}).then(({data}) => setData(data))
-    };
-
-    if(user.data){
-      fetchFavorites();
-    }
-  }, [user.data])
-
   return (
     <AuthProtect>
       <section className="favorites">
         <div className="container">
-        {data ? <FavoritesProductsList products={data.likedProducts} contentLength={data.contentLength} /> : <Loader />}
+        <FavoritesProductsList />
         </div>
       </section>
     </AuthProtect>

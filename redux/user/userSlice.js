@@ -1,18 +1,20 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { myAxios } from "../../utils/myAxios";
 
+const namespace = 'auth'
+
 export const fetchRegister = createAsyncThunk('auth/register', async (payload) => {
-    const { data } = await myAxios.post(`/auth/register`, payload);
+    const { data } = await myAxios.post(`/${namespace}/register`, payload);
     return data;
 });
 
 export const fetchLogin = createAsyncThunk('auth/login', async (payload) => {
-    const { data } = await myAxios.post(`/auth/login`, payload);
+    const { data } = await myAxios.post(`/${namespace}/login`, payload);
     return data;
 });
 
 export const fetchMe = createAsyncThunk('auth/get-me', async (token) => {
-    const { data } = await myAxios.post(`/auth/get-me`, null, {headers: {
+    const { data } = await myAxios.post(`/${namespace}/get-me`, null, {headers: {
         Authorization: 'Bearer ' + token
     }});
     return data;
@@ -36,43 +38,43 @@ const userSlice = createSlice({
             state.status = 'rejected';
         }
     },
-    extraReducers: {
-        [fetchRegister.pending] : (state) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchRegister.pending, (state) => {
             state.data = null;
             state.status = 'pending';
-        },
-        [fetchRegister.fulfilled] : (state, action) => {
+        });
+        builder.addCase(fetchRegister.fulfilled, (state, action) => {
             state.data = action.payload;
             state.status = 'fulfilled';
-        },
-        [fetchRegister.rejected] : (state) => {
-            state.data = null;
-            state.status = 'rejected';
-        },
-        [fetchLogin.pending] : (state) => {
+        });
+        builder.addCase(fetchRegister.rejected, (state) => {
             state.data = null;
             state.status = 'pending';
-        },
-        [fetchLogin.fulfilled] : (state, action) => {
-            state.data = action.payload;
-            state.status = 'fulfilled';
-        },
-        [fetchLogin.rejected] : (state) => {
-            state.data = null;
-            state.status = 'rejected';
-        },
-        [fetchMe.pending] : (state) => {
+        });
+        builder.addCase(fetchLogin.pending, (state) => {
             state.data = null;
             state.status = 'pending';
-        },
-        [fetchMe.fulfilled] : (state, action) => {
+        });
+        builder.addCase(fetchLogin.fulfilled, (state, action) => {
             state.data = action.payload;
             state.status = 'fulfilled';
-        },
-        [fetchMe.rejected] : (state) => {
+        });
+        builder.addCase(fetchLogin.rejected, (state) => {
             state.data = null;
-            state.status = 'rejected';
-        },
+            state.status = 'pending';
+        });
+        builder.addCase(fetchMe.pending, (state) => {
+            state.data = null;
+            state.status = 'pending';
+        });
+        builder.addCase(fetchMe.fulfilled, (state, action) => {
+            state.data = action.payload;
+            state.status = 'fulfilled';
+        });
+        builder.addCase(fetchMe.rejected, (state) => {
+            state.data = null;
+            state.status = 'pending';
+        });
     }
 });
 

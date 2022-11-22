@@ -28,19 +28,19 @@ const favoritesSlice = createSlice({
             state.status = 'rejected';
         }
     },
-    extraReducers: {
-        [fetchFavorites.pending] : (state) => {
+    extraReducers: (builder) => {
+        builder.addCase(fetchFavorites.pending, (state) => {
             state.data = null;
             state.status = 'pending';
-        },
-        [fetchFavorites.fulfilled] : (state, action) => {
+        });
+        builder.addCase(fetchFavorites.fulfilled, (state, action) => {
             state.data = action.payload;
             state.status = 'fulfilled';
-        },
-        [fetchFavorites.rejected] : (state) => {
+        });
+        builder.addCase(fetchFavorites.rejected, (state) => {
             state.data = null;
             state.status = 'rejected';
-        },
+        });
     }
 });
 

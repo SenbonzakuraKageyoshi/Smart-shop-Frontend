@@ -27,4 +27,11 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    margin-top: 60px;
+}
+
+@media(max-width: 997px){
+    .productsList{
+        justify-content: center;
+    }
 }

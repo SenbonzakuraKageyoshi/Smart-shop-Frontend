@@ -3,10 +3,9 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import CatalogMenu from '../CatalogMenu/CatalogMenu';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeOpenedStatus } from '../../redux/popup/popupSlice';
-import AuthForm from '../AuthForm/AuthForm';
 
 const Header = React.memo(() => {
 
@@ -14,6 +13,17 @@ const Header = React.memo(() => {
 
   const user = useSelector(state => state.user);
   const dispatch = useDispatch();
+  
+  const navigationItems = useMemo(() => {
+    return [
+      {id: 0, name: 'О компании', href: '/asd'},
+      {id: 1, name: 'Акции', href: '/asd'},
+      {id: 2, name: 'Рассрочка 0|0|18', href: '/asd'},
+      {id: 3, name: 'Сервис и гарантия', href: '/asd'},
+      {id: 4, name: 'Опт/дропшиппинг', href: '/asd'},
+      {id: 5, name: 'Контакты', href: '/asd'},
+    ];
+  }, []);
 
   return (
     <div className="header">
@@ -79,7 +89,7 @@ const Header = React.memo(() => {
           user.data && user.status === 'fulfilled'
           ?
           <div className={styles.headerTopActions}>
-            <Link href={`/favorites?page=1`}>
+            <Link href={`/favorites`}>
               <div className={styles.headerTopActionsItem}>
                 <Image src="/images/svg/favorites.svg" width={20} height={18} alt="favorites"/>
               </div>
@@ -109,36 +119,13 @@ const Header = React.memo(() => {
               </div>
               <nav className={styles.headerBottomNav}>
                 <ul className={styles.headerBottomNavMenuList}>
-                  <li className={styles.headerBottomNavMenuListItem}>
-                    <Link href="/asd" legacyBehavior>
-                      <a className={styles.headerBottomNavMenuListLink}>О компании</a>
-                    </Link>
-                  </li>
-                  <li className={styles.headerBottomNavMenuListItem}>
-                    <Link href="/asd" legacyBehavior>
-                      <a className={styles.headerBottomNavMenuListLink}>Акции</a>
-                    </Link>
-                  </li>
-                  <li className={styles.headerBottomNavMenuListItem}>
-                    <Link href="/asd" legacyBehavior>
-                      <a className={styles.headerBottomNavMenuListLink}>Рассрочка 0|0|18</a>
-                    </Link>
-                  </li>
-                  <li className={styles.headerBottomNavMenuListItem}>
-                    <Link href="/asd" legacyBehavior>
-                      <a className={styles.headerBottomNavMenuListLink}>Сервис и гарантия</a>
-                    </Link>
-                  </li>
-                  <li className={styles.headerBottomNavMenuListItem}>
-                    <Link href="/asd" legacyBehavior>
-                      <a className={styles.headerBottomNavMenuListLink}>Опт/дропшиппинг</a>
-                    </Link>
-                  </li>
-                  <li className={styles.headerBottomNavMenuListItem}>
-                    <Link href="/asd" legacyBehavior>
-                      <a className={styles.headerBottomNavMenuListLink}>Контакты</a>
-                    </Link>
-                  </li>
+                  {navigationItems.map((item) => (
+                    <li className={styles.headerBottomNavMenuListItem} key={item.id}>
+                      <Link href={item.href} legacyBehavior>
+                        <a className={styles.headerBottomNavMenuListLink}>{item.name}</a>
+                      </Link>
+                    </li>
+                  ))}
                 </ul>
               </nav>
               {catalogOpened ? <CatalogMenu/> : null}
